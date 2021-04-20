@@ -1,5 +1,4 @@
 // DTO : Data Transfer Object
-
 import { IsNumber, IsString } from 'class-validator';
 
 export class CreateMovieDto {
