@@ -1,3 +1,5 @@
+// 'nest g s' 커맨드로 service 생성
+
 import { Test, TestingModule } from '@nestjs/testing';
 import { MoviesService } from './movies.service';
 
