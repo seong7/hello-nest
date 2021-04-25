@@ -3,6 +3,7 @@ import { Movie } from './entities/movies.entity';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
 
+// movies.module 에서 MoviesController 에 Dependency 로 inject 됨
 @Injectable()
 export class MoviesService {
   private movies: Movie[] = [];

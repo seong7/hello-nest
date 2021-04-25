@@ -8,7 +8,6 @@ import {
   Param,
   Patch,
   Post,
-  Put,
   Query,
 } from '@nestjs/common';
 import { MoviesService } from './movies.service';
@@ -18,10 +17,16 @@ import { UpdateMovieDto } from './dto/update-movie.dto';
 
 @Controller('movies')
 export class MoviesController {
+  // TypeScript 이므로 MoviesService 를 명시하여 사용할 수 있지만,
+  // JS 에서는 명시하지 않는다. movies.module 에서 inject 해줄 뿐 !
   constructor(private moviesService: MoviesService) {}
 
   @Get()
   getAll(): Movie[] {
+    // getAll(@Req() req, @Res() res): Movie[] {  // nest js 를 express 처럼 사용하는 방법
+    //   res.json();                              // 하지만, 이렇게 작성 시, nest js 가 제공하는
+    //                                               express / fastify 두 프레임워크 간 전환 시 호환에 문제가 생김
+    //                                               (fastify 는 express 보다 2배 빠르다는 framework)
     return this.moviesService.getAll();
   }
 
@@ -31,6 +36,9 @@ export class MoviesController {
     return `We are searching for a movie ${searchingYear}`;
   }
 
+  // uri 의 data 는 모두 string 이지만
+  // main.ts 의 미들웨어 ValidationPipe - transform 에서 dto 에 맞춰 type 을 변환해주므로
+  // number 로 받을 수 있다.
   @Get(':id')
   getOne(@Param('id') movieId: number): Movie {
     return this.moviesService.getOne(movieId);
